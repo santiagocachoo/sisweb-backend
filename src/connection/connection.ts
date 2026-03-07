@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import { Product } from "../models/product";
+import { EmpresaMiembro } from "../models/empresaMiembro";
 
 const connection = new Sequelize({ 
   database: 'sisweb_db', 
@@ -8,7 +8,7 @@ const connection = new Sequelize({
   password: 'HDK#$%Ljkwerff.89', 
   storage: ':memory:', 
   models: [
-    Product
+    EmpresaMiembro
    ] 
 }); 
 
