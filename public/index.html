@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>SISWEB</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Empresas miembro</h1>
+      <button id="refreshBtn">Recargar</button>
+
+      <p id="message"></p>
+
+      <form id="empresaForm">
+        <h2>Nueva empresa miembro</h2>
+
+        <label>
+          Nombre
+          <input id="name" name="name" type="text" required />
+        </label>
+
+        <label>
+          Sector
+          <input id="sector" name="sector" type="text" required />
+        </label>
+
+        <label>
+          Email de contacto
+          <input id="contactEmail" name="contactEmail" type="email" required />
+        </label>
+
+        <label>
+          Teléfono
+          <input id="phone" name="phone" type="text" required />
+        </label>
+
+        <label>
+          Activa
+          <input id="isActive" name="isActive" type="checkbox" checked />
+        </label>
+
+        <button type="submit">Crear empresa</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Sector</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="empresaTableBody"></tbody>
+      </table>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
