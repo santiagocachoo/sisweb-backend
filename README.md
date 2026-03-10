@@ -1,6 +1,6 @@
 # SISWEB Backend
 
-API backend en **Node.js + Express + TypeScript** para una tienda online de productos de limpieza, belleza y skincare.
+API backend en **Node.js + Express + TypeScript** para una modelo de objeto del reto de CLAS.
 
 ## Tecnologías
 
