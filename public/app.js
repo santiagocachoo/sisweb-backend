@@ -18,7 +18,7 @@ function renderRows(items) {
   tableBody.innerHTML = "";
 
   if (!items.length) {
-    tableBody.innerHTML = `<tr><td colspan="6">Sin empresas registradas</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="7">Sin empresas registradas</td></tr>`;
     return;
   }
 
@@ -31,6 +31,10 @@ function renderRows(items) {
       <td>${item.contactEmail ?? ""}</td>
       <td>${item.phone ?? ""}</td>
       <td>${item.isActive ? "Sí" : "No"}</td>
+      <td>
+        <button class="edit-btn" data-id="${item.id}">Editar</button>
+        <button class="delete-btn" data-id="${item.id}">Eliminar</button>
+      </td>
     `;
     tableBody.appendChild(row);
   }
@@ -64,6 +68,76 @@ async function createEmpresaMiembro(payload) {
   const data = await res.json();
   return { res, data };
 }
+
+async function deleteEmpresaMiembro(id) {
+  const res = await fetch(`/empresa-miembro/${id}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  return { res, data };
+}
+
+async function updateEmpresaMiembro(id, payload) {
+  const res = await fetch(`/empresa-miembro/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  return { res, data };
+}
+
+tableBody.addEventListener("click", async (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) return;
+
+  const id = target.dataset.id;
+  if (!id) return;
+
+  if (target.classList.contains("delete-btn")) {
+    const confirmDelete = confirm("¿Eliminar esta empresa?");
+    if (!confirmDelete) return;
+
+    try {
+      const { res, data } = await deleteEmpresaMiembro(id);
+      if (!res.ok || data.status !== "success") {
+        setMessage(data.message || "Error al eliminar", true);
+        return;
+      }
+      setMessage("Empresa eliminada");
+      await loadEmpresas();
+    } catch (err) {
+      setMessage("Error de red al eliminar", true);
+    }
+  }
+
+  if (target.classList.contains("edit-btn")) {
+    const newName = prompt("Nuevo nombre (deja vacío para no cambiar):");
+    const newSector = prompt("Nuevo sector (deja vacío para no cambiar):");
+
+    const payload = {};
+    if (newName && newName.trim()) payload.name = newName.trim();
+    if (newSector && newSector.trim()) payload.sector = newSector.trim();
+
+    if (Object.keys(payload).length === 0) {
+      setMessage("No se enviaron cambios", true);
+      return;
+    }
+
+    try {
+      const { res, data } = await updateEmpresaMiembro(id, payload);
+      if (!res.ok || data.status !== "success") {
+        setMessage(data.message || "Error al actualizar", true);
+        return;
+      }
+      setMessage("Empresa actualizada");
+      await loadEmpresas();
+    } catch (err) {
+      setMessage("Error de red al actualizar", true);
+    }
+  }
+});
+
 
 
 refreshBtn.addEventListener("click", loadEmpresas);
