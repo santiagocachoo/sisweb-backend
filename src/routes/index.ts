@@ -8,7 +8,7 @@ apiRouter.use('/product', productRoutes);
 apiRouter.use('/empresa-miembro', empresaMiembroRoutes);
 
 apiRouter.get('/', (req:Request, res: Response) => {  
-res.send('que pedo!')  
+res.send('que onda!')  
 })  
 
 export default apiRouter; 
