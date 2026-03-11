@@ -1,5 +1,6 @@
-import {Table, Model, Column, DataType, PrimaryKey, AutoIncrement} from 'sequelize-typescript'; 
+import {Table, Model, Column, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo} from 'sequelize-typescript'; 
 import {Optional} from 'sequelize'; 
+import { Tier } from './tier';
 
 interface EmpresaAttributes {
   id_empresa: number;
@@ -43,9 +44,13 @@ export class EmpresaMiembro extends Model<
   @Column(DataType.STRING(50))
   nombre_contacto!: string;
 
+  @ForeignKey(() => Tier)
   @Column(DataType.INTEGER)
   tier_id!: number;
 
   @Column(DataType.STRING(250))
   logo!: string;
+
+  @BelongsTo(() => Tier)
+  tier?: Tier;
 }
