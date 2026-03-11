@@ -86,7 +86,7 @@ export const modifyEmpresaMiembro: RequestHandler = (req: Request,res: Response)
     });
   }
 
-  EmpresaMiembro.update({ ...req.body }, { where: { id: Number(req.params.id) } })
+  EmpresaMiembro.update({ ...req.body }, { where: { id_empresa: Number(req.params.id) } })
     .then(([updatedRows]) => {
       if (updatedRows > 0) {
         return res.status(200).json({
@@ -113,13 +113,13 @@ export const modifyEmpresaMiembro: RequestHandler = (req: Request,res: Response)
 
 // Delete empresa miembro
 export const deleteEmpresaMiembro: RequestHandler = (req: Request,res: Response) => {
-  EmpresaMiembro.destroy({ where: { id: Number(req.params.id) } })
+  EmpresaMiembro.destroy({ where: { id_empresa: Number(req.params.id) } })
     .then((deletedRows) => {
       if (deletedRows > 0) {
         return res.status(200).json({
           status: "success",
           message: "EmpresaMiembro successfully deleted",
-          payload: { id: Number(req.params.id) },
+          payload: { id_empresa: Number(req.params.id) },
         });
       }
 

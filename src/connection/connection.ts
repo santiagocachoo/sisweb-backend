@@ -6,7 +6,6 @@ const connection = new Sequelize({
   dialect: 'postgres',
   username: 'sisweb_user', 
   password: 'HDK#$%Ljkwerff.89', 
-  storage: ':memory:', 
   models: [
     EmpresaMiembro
    ] 

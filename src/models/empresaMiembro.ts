@@ -1,49 +1,51 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType} from 'sequelize-typescript'; 
+import {Table, Model, Column, DataType, PrimaryKey, AutoIncrement} from 'sequelize-typescript'; 
 import {Optional} from 'sequelize'; 
 
-interface EmpresaMiembroAttributes{ 
-  id: number; 
-  name: string; 
-  sector: string; 
-  contactEmail: string ; 
-  phone: string ; 
-  isActive: boolean ; 
-} 
+interface EmpresaAttributes {
+  id_empresa: number;
+  nombre: string;
+  datos_generales: string;
+  correo_electronico: string;
+  contacto: string;
+  nombre_contacto: string;
+  tier_id: number;
+  logo: string;
+}
 
-interface EmpresaMiembroCreationAttributes extends Optional<EmpresaMiembroAttributes, 'id'>{} 
+interface EmpresaCreationAttributes
+  extends Optional<EmpresaAttributes, "id_empresa"> {}
 
-@Table ({ 
-  tableName: "EmpresaMiembros" 
-}) 
-export class EmpresaMiembro extends Model<EmpresaMiembroAttributes, EmpresaMiembroCreationAttributes>{ 
+@Table({
+  tableName: "empresas",
+  timestamps: false,
+})
+export class EmpresaMiembro extends Model<
+  EmpresaAttributes,
+  EmpresaCreationAttributes
+> { 
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
+  id_empresa!: number;
 
+  @Column(DataType.STRING(100))
+  nombre!: string;
 
-// Here, TS infers Data Type from the JS Type 
-  // The ! means that the variable NAME wont be null or undefine.  
-   @Column 
-   name!: string; 
+  @Column(DataType.TEXT)
+  datos_generales!: string;
 
-  // Here, we set the Data Type explicity 
-  // CAMBIAR ! POR ? SIGNIFICA QUE PUEDE SER NULL O UNDEFINED
-   @Column({ 
-      type: DataType.STRING 
-   }) 
-   sector!: string; 
+  @Column(DataType.STRING(150))
+  correo_electronico!: string;
 
-   @Column 
-   contactEmail!: string; 
+  @Column(DataType.STRING(20))
+  contacto!: string;
 
-   @Column 
-   phone!: string; 
+  @Column(DataType.STRING(50))
+  nombre_contacto!: string;
 
-   @Column 
-   isActive!: boolean; 
+  @Column(DataType.INTEGER)
+  tier_id!: number;
 
-   @CreatedAt 
-   @Column 
-   createdAt!: Date; 
-
-   @UpdatedAt 
-   @Column 
-   updatedAt!: Date; 
-} 
+  @Column(DataType.STRING(250))
+  logo!: string;
+}
