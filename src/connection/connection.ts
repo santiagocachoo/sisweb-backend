@@ -1,13 +1,14 @@
 import { Sequelize } from "sequelize-typescript";
 import { EmpresaMiembro } from "../models/empresaMiembro";
+import { Tier } from "../models/tier";
 
 const connection = new Sequelize({ 
   database: 'sisweb_db', 
   dialect: 'postgres',
   username: 'sisweb_user', 
   password: 'HDK#$%Ljkwerff.89', 
-  storage: ':memory:', 
   models: [
+    Tier,
     EmpresaMiembro
    ] 
 }); 
