@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
-import productRoutes from './productRoutes';  
 import empresaMiembroRoutes from './empresaMiembroRoutes';
+import tierRoutes from './tierRoutes';
 
 const apiRouter:Router = Router();  
 
-apiRouter.use('/product', productRoutes);  
 apiRouter.use('/empresa-miembro', empresaMiembroRoutes);
+apiRouter.use('/tier', tierRoutes);
 
 apiRouter.get('/', (req:Request, res: Response) => {  
 res.send('que onda!')  
