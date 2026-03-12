@@ -26,6 +26,12 @@ export class Tier extends Model<
   @Column(DataType.STRING(50))
   nombre_tier!: string;
 
-  @HasMany(() => EmpresaMiembro)
+  @HasMany(() => EmpresaMiembro, {
+    foreignKey: "tier_id",
+    sourceKey: "id_tier",
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
   empresas?: EmpresaMiembro[];
+
 }

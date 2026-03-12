@@ -51,6 +51,11 @@ export class EmpresaMiembro extends Model<
   @Column(DataType.STRING(250))
   logo!: string;
 
-  @BelongsTo(() => Tier)
+  @BelongsTo(() => Tier, {
+    foreignKey: "tier_id",
+    targetKey: "id_tier",
+    onDelete: "RESTRICT",
+    onUpdate: "CASCADE",
+  })
   tier?: Tier;
 }
