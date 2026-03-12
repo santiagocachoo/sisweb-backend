@@ -1,5 +1,6 @@
 import { RequestHandler, Request, Response } from "express";
 import { EmpresaMiembro } from "../models/empresaMiembro";
+import { Tier } from "../models/tier";
 
 // Create new empresa miembro
 export const createEmpresaMiembro: RequestHandler = (req: Request,res: Response) => {
@@ -31,7 +32,7 @@ export const createEmpresaMiembro: RequestHandler = (req: Request,res: Response)
 
 // Get all empresa miembros
 export const getAllEmpresaMiembros: RequestHandler = (req: Request,res: Response) => {
-  EmpresaMiembro.findAll()
+  EmpresaMiembro.findAll({include: [Tier]})
     .then((data: EmpresaMiembro[]) => {
       return res.status(200).json({
         status: "success",
@@ -51,7 +52,7 @@ export const getAllEmpresaMiembros: RequestHandler = (req: Request,res: Response
 
 // Get empresa miembro by ID
 export const getEmpresaMiembroById: RequestHandler = (req: Request,res: Response) => {
-  EmpresaMiembro.findByPk(Number(req.params.id))
+  EmpresaMiembro.findByPk(Number(req.params.id), {include: [Tier]})
     .then((data: EmpresaMiembro | null) => {
       if (!data) {
         return res.status(404).json({

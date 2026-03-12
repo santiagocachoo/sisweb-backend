@@ -131,10 +131,18 @@ export const deleteTier: RequestHandler = (req: Request,res: Response) => {
       });
     })
     .catch((err) => {
-      return res.status(500).json({
-        status: "error",
-        message: "Error deleting tier. " + err.message,
-        payload: null,
-      });
+        if (err?.name === "SequelizeForeignKeyConstraintError") {
+            return res.status(409).json({
+                status: "error",
+                message: "Cannot delete tier because it has associated empresas",
+                payload: null,
+            });
+        }
+
+        return res.status(500).json({
+            status: "error",
+            message: "Error deleting tier. " + err.message,
+            payload: null,
+        });
     });
 };
