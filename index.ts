@@ -2,12 +2,14 @@ import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
 import apiRouter from "./src/routes";
 import connectionDB from "./src/connection/connection";
+import cors from 'cors'
 
 const app:Express = express();
 const port: number = 3000;
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:5173' }))
 app.use(apiRouter);
 
 connectionDB();
